@@ -22,7 +22,7 @@ def get_page_with_at_least_two_jpegs():
             #getting one random wiki page
             random_page = wikipedia.page(wikipedia.random(1))
             image_count = len(random_page.images)
-            if image_count > 5:
+            if image_count > 3:
                 image_urls = random_page.images
             else:
                 image_urls = []
