@@ -2,8 +2,11 @@ import wikipedia
 import tweepy
 import random
 import urllib.request
+from PIL import Image
+import os
 
 def twitter_api():
+
     twitter_consumer_key = 'zYVvznaEaHaQacUnR4pdEivPm'
     twitter_consumer_secret = '0m4XDM4Wa0d9ytTtKCVqN9PgLJBZP3rKpPvVGFdRlrH79AFyow'
 
@@ -15,7 +18,9 @@ def twitter_api():
     api = tweepy.API(auth)
     return api
 
+
 def get_page_with_at_least_two_jpegs():
+
     count_of_jpegs = 0
     while count_of_jpegs < 2:
         try:
@@ -44,6 +49,7 @@ def get_page_with_at_least_two_jpegs():
     #return the page with more than 2 jpegs
     return random_page.title, jpeg_url
 
+
 def assemble_tweet(first_pair, second_pair):
 
     success = False
@@ -55,16 +61,35 @@ def assemble_tweet(first_pair, second_pair):
             filenames = ['first_image.jpg','second_image.jpg']
             media_ids = []
             for filename in filenames:
+                #test size of images, return appropraite file
+                test_image_and_downscale_if_too_large(filename)
                 try:
                     res = twitter_api().media_upload(filename)
                     media_ids.append(res.media_id)
                 except tweepy.error.TweepError:
+                    print(tweepy.error.TweepError)
                     continue
-
             twitter_api().update_status(status = first_pair[0] + ', ' + second_pair[0], media_ids=media_ids)
             success = True
         except tweepy.error.TweepError:
             print(tweepy.error.TweepError)
+
+
+#test function
+def test_image_and_downscale_if_too_large(filepath):
+
+    #if the image is < 2000kb, return image
+    image_size = os.stat(filepath).st_size
+    success = False
+    while not success:
+        if image_size < 2000000:
+            success = True
+            return filepath
+        #if the image is > 2000kb, return resized image and replace file
+        else:
+            original_image = Image.open(filepath)
+            original_image.save(filepath, quality=20, optimized=True)
+            return filepath
 
 
 first_pair = get_page_with_at_least_two_jpegs()
