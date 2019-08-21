@@ -7,11 +7,12 @@ import os
 
 def twitter_api():
 
-    TWITTER_CONSUMER_KEY = 'zYVvznaEaHaQacUnR4pdEivPm'
-    TWITTER_CONSUMER_SECRET = '0m4XDM4Wa0d9ytTtKCVqN9PgLJBZP3rKpPvVGFdRlrH79AFyow'
+    #removed keys
+    TWITTER_CONSUMER_KEY = os.environ.get('TWITTER_CONSUMER_KEY')
+    TWITTER_CONSUMER_SECRET = os.environ.get('TWITTER_CONSUMER_SECRET')
 
-    TWITTER_ACCESS_TOKEN = '1162470665091506177-TeUsm94IPzCN6SJTYuqjByKPloXfRR'
-    TWITTER_ACCESS_SECRET = 'Ed2avQwgob4bZEDIY2SpjYcBfBOEfvKYChmDbG6cjzbrV'
+    TWITTER_ACCESS_TOKEN = os.environ.get('TWITTER_ACCESS_TOKEN')
+    TWITTER_ACCESS_SECRET = os.environ.get('TWITTER_ACCESS_SECRET')
 
     auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
     auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_SECRET)
@@ -36,8 +37,6 @@ def get_page_with_at_least_two_jpegs():
             for url in image_urls:
                 if url[-4:] == '.jpg':
                     count_of_jpegs+=1
-                    # download image
-                    #urllib.request.urlretrieve(url, random_page.title + '.jpg')
                     jpeg_url = url
         except wikipedia.exceptions.DisambiguationError:
             print('DisambiguationError')
