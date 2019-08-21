@@ -55,10 +55,10 @@ def assemble_tweet(first_pair, second_pair):
     success = False
     while not success:
         try:
-            urllib.request.urlretrieve(first_pair[1], 'first_image.jpg')
-            urllib.request.urlretrieve(second_pair[1], 'second_image.jpg')
+            urllib.request.urlretrieve(first_pair[1], '/home/pi/wiki_diptych/wiki_bot/first_image.jpg')
+            urllib.request.urlretrieve(second_pair[1], '/home/pi/wiki_diptych/wiki_bot/second_image.jpg')
 
-            filenames = ['first_image.jpg','second_image.jpg']
+            filenames = ['/home/pi/wiki_diptych/wiki_bot/first_image.jpg','/home/pi/wiki_diptych/wiki_bot/second_image.jpg']
             media_ids = []
             for filename in filenames:
                 #test size of images, return appropraite file
