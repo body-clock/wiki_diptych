@@ -7,14 +7,14 @@ import os
 
 def twitter_api():
 
-    twitter_consumer_key = 'zYVvznaEaHaQacUnR4pdEivPm'
-    twitter_consumer_secret = '0m4XDM4Wa0d9ytTtKCVqN9PgLJBZP3rKpPvVGFdRlrH79AFyow'
+    TWITTER_CONSUMER_KEY = 'zYVvznaEaHaQacUnR4pdEivPm'
+    TWITTER_CONSUMER_SECRET = '0m4XDM4Wa0d9ytTtKCVqN9PgLJBZP3rKpPvVGFdRlrH79AFyow'
 
-    twitter_access_token = '1162470665091506177-TeUsm94IPzCN6SJTYuqjByKPloXfRR'
-    twitter_access_secret = 'Ed2avQwgob4bZEDIY2SpjYcBfBOEfvKYChmDbG6cjzbrV'
+    TWITTER_ACCESS_TOKEN = '1162470665091506177-TeUsm94IPzCN6SJTYuqjByKPloXfRR'
+    TWITTER_ACCESS_SECRET = 'Ed2avQwgob4bZEDIY2SpjYcBfBOEfvKYChmDbG6cjzbrV'
 
-    auth = tweepy.OAuthHandler(twitter_consumer_key, twitter_consumer_secret)
-    auth.set_access_token(twitter_access_token, twitter_access_secret)
+    auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
+    auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_SECRET)
     api = tweepy.API(auth)
     return api
 
