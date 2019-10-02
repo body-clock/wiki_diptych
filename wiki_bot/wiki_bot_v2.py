@@ -4,16 +4,20 @@ import random
 import urllib.request
 from PIL import Image
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 def twitter_api():
 
-    twitter_consumer_key = 'zYVvznaEaHaQacUnR4pdEivPm'
-    twitter_consumer_secret = '0m4XDM4Wa0d9ytTtKCVqN9PgLJBZP3rKpPvVGFdRlrH79AFyow'
+    twitter_api_key = os.getenv("TWITTER_API_KEY")
+    twitter_api_secret = os.getenv("TWITTER_API_SECRET")
 
-    twitter_access_token = '1162470665091506177-TeUsm94IPzCN6SJTYuqjByKPloXfRR'
-    twitter_access_secret = 'Ed2avQwgob4bZEDIY2SpjYcBfBOEfvKYChmDbG6cjzbrV'
+    twitter_access_token = os.getenv("TWITTER_ACCESS_TOKEN")
+    twitter_access_secret = os.getenv("TWITTER_ACCESS_SECRET")
 
-    auth = tweepy.OAuthHandler(twitter_consumer_key, twitter_consumer_secret)
+    auth = tweepy.OAuthHandler(twitter_api_key, twitter_api_secret)
     auth.set_access_token(twitter_access_token, twitter_access_secret)
     api = tweepy.API(auth)
     return api
@@ -26,11 +30,7 @@ def get_page_with_at_least_two_jpegs():
         try:
             #getting one random wiki page
             random_page = wikipedia.page(wikipedia.random(1))
-            image_count = len(random_page.images)
-            if image_count > 3:
-                image_urls = random_page.images
-            else:
-                image_urls = []
+            image_urls = random_page.images
 
             count_of_jpegs = 0
             for url in image_urls:
