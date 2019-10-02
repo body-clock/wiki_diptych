@@ -12,7 +12,6 @@ load_dotenv()
 # defining our twitter api
 def twitter_api():
 
-<<<<<<< HEAD:wiki_bot/wiki_bot_v2.py
     twitter_api_key = os.getenv("TWITTER_API_KEY")
     twitter_api_secret = os.getenv("TWITTER_API_SECRET")
 
@@ -21,17 +20,7 @@ def twitter_api():
 
     auth = tweepy.OAuthHandler(twitter_api_key, twitter_api_secret)
     auth.set_access_token(twitter_access_token, twitter_access_secret)
-=======
-    #removed keys
-    TWITTER_CONSUMER_KEY = os.environ.get('TWITTER_CONSUMER_KEY')
-    TWITTER_CONSUMER_SECRET = os.environ.get('TWITTER_CONSUMER_SECRET')
 
-    TWITTER_ACCESS_TOKEN = os.environ.get('TWITTER_ACCESS_TOKEN')
-    TWITTER_ACCESS_SECRET = os.environ.get('TWITTER_ACCESS_SECRET')
-
-    auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
-    auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_SECRET)
->>>>>>> d6422145cb605626658af1c15053d3cd9a28ffdc:wiki_bot/wiki_bot_no_keys.py
     api = tweepy.API(auth)
     return api
 
@@ -43,9 +32,7 @@ def get_page_with_at_least_two_jpegs():
         try:
             # getting one random wiki page
             random_page = wikipedia.page(wikipedia.random(1))
-<<<<<<< HEAD:wiki_bot/wiki_bot_v2.py
             image_urls = random_page.images
-=======
 
             # count the images on the page
             image_count = len(random_page.images)
@@ -56,7 +43,6 @@ def get_page_with_at_least_two_jpegs():
                 image_urls = random_page.images
             else:
                 image_urls = []
->>>>>>> d6422145cb605626658af1c15053d3cd9a28ffdc:wiki_bot/wiki_bot_no_keys.py
 
             # reset jpg count for when we examine the second page
             count_of_jpegs = 0
