@@ -81,8 +81,8 @@ def assemble_tweet(first_pair, second_pair):
                 try:
                     res = twitter_api().media_upload(filename)
                     media_ids.append(res.media_id)
-                except tweepy.error.TweepError:
-                    print(tweepy.error.TweepError)
+                except tweepy.error.TweepError as e:
+                    print(e)
                     continue
 
             # tweet names of articles & pictures
@@ -90,8 +90,8 @@ def assemble_tweet(first_pair, second_pair):
             success = True
 
         #error handling
-        except tweepy.error.TweepError:
-            print(tweepy.error.TweepError)
+        except tweepy.error.TweepError as e:
+            print(e)
 
 
 # test if our image is too large for tweepy to send it
