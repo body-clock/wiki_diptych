@@ -1,0 +1,25 @@
+org: blizzard97
+app: wiki-diptych-serverless
+service: wiki-diptych-serverless
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.9
+
+plugins:
+  - serverless-python-requirements
+
+package:
+  exclude:
+    - node_modules/**
+    - venv/**
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+
+functions:
+  hello:
+    handler: wiki_diptych.lambda_handler
