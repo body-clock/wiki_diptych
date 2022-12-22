@@ -24,8 +24,7 @@ def twitter_api():
     auth = tweepy.OAuthHandler(twitter_api_key, twitter_api_secret)
     auth.set_access_token(twitter_access_token, twitter_access_secret)
 
-    api = tweepy.API(auth)
-    return api
+    return tweepy.API(auth)
 
 
 def get_page_with_at_least_two_jpegs():
@@ -42,11 +41,7 @@ def get_page_with_at_least_two_jpegs():
 
             # my reasoning is that pages with more images will tend to have better
             # quality .jpgs, could improve this part
-            if image_count > 3:
-                image_urls = random_page.images
-            else:
-                image_urls = []
-
+            image_urls = random_page.images if image_count > 3 else []
             # reset jpg count for when we examine the second page
             count_of_jpegs = 0
 
@@ -114,10 +109,12 @@ def assemble_tweet(first_pair, second_pair):
                     continue
 
             # tweet names of articles & pictures
-            twitter_api().update_status(status=first_pair[0] + ', ' + second_pair[0], media_ids=media_ids)
+            twitter_api().update_status(
+                status=f'{first_pair[0]}, {second_pair[0]}',
+                media_ids=media_ids,
+            )
             success = True
 
-        # error handling
         except tweepy.error.TweepError as e:
             print(e)
 
@@ -130,14 +127,13 @@ def test_image_and_downscale_if_too_large(filepath):
     while not success:
         if image_size < 2000000:
             success = True
-            return filepath
-        # if the image is > 2000kb, return resized image and replace file
         else:
             print('Resizing image...')
             original_image = Image.open(filepath)
             original_image.save(filepath, quality=20, optimized=True)
             print('Resized image saved.')
-            return filepath
+
+        return filepath
 
 
 # main loop
@@ -147,4 +143,3 @@ def lambda_handler(event, context):
     print(first_pair)
     print(second_pair)
     assemble_tweet(prepare_image_path(first_pair), prepare_image_path(second_pair))
-
