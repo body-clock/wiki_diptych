@@ -91,7 +91,6 @@ def prepare_image_path(pair):
     s3.delete_object(Bucket=bucket, Key=img_name)
     # test and downscale that image in tmp if too large
     return [pair[0], test_image_and_downscale_if_too_large(f'/tmp/{img_name}')]
-    # return array [title, image_path]
 
 
 # reads inputs from the title & url pairs of 2 pages
