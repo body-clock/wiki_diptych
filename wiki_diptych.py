@@ -133,8 +133,10 @@ def test_image_and_downscale_if_too_large(filepath):
             return filepath
         # if the image is > 2000kb, return resized image and replace file
         else:
+            print('Resizing image...')
             original_image = Image.open(filepath)
             original_image.save(filepath, quality=20, optimized=True)
+            print('Resized image saved.')
             return filepath
 
 
@@ -145,3 +147,4 @@ def lambda_handler(event, context):
     print(first_pair)
     print(second_pair)
     assemble_tweet(prepare_image_path(first_pair), prepare_image_path(second_pair))
+
